@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meals/data/dummy_data.dart';
 import 'package:meals/model/category.dart';
+import 'package:meals/widgets/category_grid_item.dart';
 
 class CategoriesScreen extends StatelessWidget {
   const CategoriesScreen({super.key});
@@ -22,10 +23,7 @@ class CategoriesScreen extends StatelessWidget {
         ),
         children: categories
             .map(
-              (category) => Text(
-                category.title,
-                style: TextStyle(color: Colors.white),
-              ),
+              (category) => CategoryGridItem(category),
             )
             .toList(),
       ),
