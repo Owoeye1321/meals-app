@@ -8,12 +8,15 @@ class CategoriesScreen extends StatelessWidget {
   const CategoriesScreen({super.key});
   final List<Category> categories = availableCategories;
 
-  void onSelectCategory(BuildContext context) {
+  void onSelectCategory(BuildContext context, Category category) {
+    final filteredMeals = dummyMeals
+        .where((meal) => meal.categories.contains(category.id))
+        .toList();
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (ctx) => MealScreen(
-          "Hello meal",
-          [],
+          category.title,
+          filteredMeals,
         ),
       ),
     );
@@ -36,8 +39,10 @@ class CategoriesScreen extends StatelessWidget {
         ),
         children: categories
             .map(
-              (category) =>
-                  CategoryGridItem(category, onSelectCategory(context)),
+              (category) => CategoryGridItem(category, () {
+                print("hello");
+                onSelectCategory(context, category);
+              }),
             )
             .toList(),
       ),
