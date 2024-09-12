@@ -34,7 +34,7 @@ class MealItem extends StatelessWidget {
               left: 0,
               right: 0,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 44, vertical: 6),
+                padding: EdgeInsets.symmetric(horizontal: 44, vertical: 10),
                 color: Colors.black54,
                 child: Column(
                   children: [
@@ -46,21 +46,27 @@ class MealItem extends StatelessWidget {
                       overflow:
                           TextOverflow.ellipsis, //long text would resolt to ...
                       style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
                     SizedBox(
-                      width: 50,
+                      height: 10,
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         MealItemTrait(Icons.schedule, '${meal.duration} min'),
                         SizedBox(
-                          width: 50,
+                          width: 20,
+                        ),
+                        MealItemTrait(Icons.work, '${meal.mealComplexity}'),
+                        SizedBox(
+                          width: 20,
                         ),
                         MealItemTrait(
-                            Icons.schedule, '${meal.mealComplexity} '),
+                            Icons.attach_money, '${meal.mealAffordability}'),
                       ],
                     )
                   ],

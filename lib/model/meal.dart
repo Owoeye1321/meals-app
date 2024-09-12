@@ -16,6 +16,11 @@ class Meal {
         this.complexity.name.substring(1);
   }
 
+  get mealAffordability {
+    return this.affordability.name[0].toUpperCase() +
+        this.affordability.name.substring(1);
+  }
+
   const Meal({
     required this.id,
     required this.categories,
