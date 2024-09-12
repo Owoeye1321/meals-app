@@ -11,6 +11,11 @@ enum Affordability {
 }
 
 class Meal {
+  get mealComplexity {
+    return this.complexity.name[0].toUpperCase() +
+        this.complexity.name.substring(1);
+  }
+
   const Meal({
     required this.id,
     required this.categories,
