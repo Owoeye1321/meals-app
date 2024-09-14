@@ -22,9 +22,9 @@ class _TabScreenState extends State<TabScreen> {
   Widget build(BuildContext context) {
     Widget activePage = CategoriesScreen();
     String activePageTitle = "Categories";
-    if (_selectedPageIndex == 2) {
-      activePage = MealScreen("Favourites", []);
-      String activePageTitle = "Favourites";
+    if (_selectedPageIndex == 1) {
+      activePage = MealScreen(meals: []);
+      activePageTitle = "Favourites";
     }
     return Scaffold(
       appBar: AppBar(
@@ -38,10 +38,13 @@ class _TabScreenState extends State<TabScreen> {
       ),
       body: activePage,
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedPageIndex,
         onTap: (index) => {selectPage(index)},
         items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.set_meal), label: "Category"),
+            icon: Icon(Icons.set_meal),
+            label: "Category",
+          ),
           BottomNavigationBarItem(icon: Icon(Icons.star), label: "Favourites")
         ],
       ),
