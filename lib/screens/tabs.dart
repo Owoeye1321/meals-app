@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meals/screens/categories.dart';
 import 'package:meals/screens/meals.dart';
+import 'package:meals/widgets/main_drawer.dart';
 
 import '../model/meal.dart';
 
@@ -22,11 +23,26 @@ class _TabScreenState extends State<TabScreen> {
 
   final List<Meal> favouriteMeals = [];
 
+  void _showMessage(String message) {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+      ),
+    );
+  }
+
   void _addOrRemoveFavourites(Meal meal) {
     if (favouriteMeals.contains(meal)) {
-      favouriteMeals.remove(meal);
+      setState(() {
+        favouriteMeals.remove(meal);
+        _showMessage("Meals removed successfully");
+      });
     } else {
-      favouriteMeals.add(meal);
+      setState(() {
+        favouriteMeals.add(meal);
+        _showMessage("Meals added successfully");
+      });
     }
   }
 
@@ -53,6 +69,7 @@ class _TabScreenState extends State<TabScreen> {
               .copyWith(color: Theme.of(context).colorScheme.onBackground),
         ),
       ),
+      drawer: MainDrawer(),
       body: activePage,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedPageIndex,
