@@ -5,13 +5,21 @@ import '../model/meal.dart';
 
 class MealDetails extends StatelessWidget {
   final Meal meal;
-  MealDetails({super.key, required this.meal});
+  final void Function(Meal meal) addOrRemoveFavourites;
+  MealDetails(
+      {super.key, required this.meal, required this.addOrRemoveFavourites});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,
           title: Text(meal.title),
+          actions: [
+            IconButton(
+              onPressed: () => {addOrRemoveFavourites(meal)},
+              icon: Icon(Icons.star),
+            )
+          ],
         ),
         body: SingleChildScrollView(
           child: Column(

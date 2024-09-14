@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:meals/screens/categories.dart';
 import 'package:meals/screens/meals.dart';
 
+import '../model/meal.dart';
+
 class TabScreen extends StatefulWidget {
   const TabScreen({super.key});
 
@@ -18,12 +20,27 @@ class _TabScreenState extends State<TabScreen> {
     });
   }
 
+  final List<Meal> favouriteMeals = [];
+
+  void _addOrRemoveFavourites(Meal meal) {
+    if (favouriteMeals.contains(meal)) {
+      favouriteMeals.remove(meal);
+    } else {
+      favouriteMeals.add(meal);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    Widget activePage = CategoriesScreen();
+    Widget activePage = CategoriesScreen(
+      addOrRemoveFavourites: _addOrRemoveFavourites,
+    );
     String activePageTitle = "Categories";
     if (_selectedPageIndex == 1) {
-      activePage = MealScreen(meals: []);
+      activePage = MealScreen(
+        meals: favouriteMeals,
+        addOrRemoveFavourites: _addOrRemoveFavourites,
+      );
       activePageTitle = "Favourites";
     }
     return Scaffold(

@@ -7,11 +7,12 @@ import '../model/meal.dart';
 
 class MealItem extends StatelessWidget {
   final Meal meal;
-  const MealItem(this.meal, {super.key});
+  final void Function(Meal meal) addOrRemoveFavourites;
+  const MealItem(this.meal, {super.key, required this.addOrRemoveFavourites});
 
   void _visitMealDetails(context, meal) {
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (ctx) => MealDetails(meal: meal)));
+        .push(MaterialPageRoute(builder: (ctx) => MealDetails(meal: meal, addOrRemoveFavourites: addOrRemoveFavourites,)));
   }
 
   @override
