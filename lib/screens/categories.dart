@@ -8,11 +8,15 @@ import '../model/meal.dart';
 
 class CategoriesScreen extends StatelessWidget {
   final void Function(Meal meal) addOrRemoveFavourites;
-  const CategoriesScreen({super.key, required this.addOrRemoveFavourites});
+  final List<Meal> availableMeals;
+  const CategoriesScreen(
+      {super.key,
+      required this.addOrRemoveFavourites,
+      required this.availableMeals});
   final List<Category> categories = availableCategories;
 
   void onSelectCategory(BuildContext context, Category category) {
-    final filteredMeals = dummyMeals
+    final filteredMeals = availableMeals
         .where((meal) => meal.categories.contains(category.id))
         .toList();
     Navigator.of(context).push(
