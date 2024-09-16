@@ -10,6 +10,9 @@ class MealDetails extends ConsumerWidget {
   MealDetails({super.key, required this.meal});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final filteredMeals = ref.watch(favouriteProvider);
+    final isFavourite = filteredMeals.contains(meal);
+
     void toggleFunction(Meal meal) {
       final result =
           ref.read(favouriteProvider.notifier).toggleMealFavouriteStatus(meal);
@@ -29,8 +32,11 @@ class MealDetails extends ConsumerWidget {
           title: Text(meal.title),
           actions: [
             IconButton(
-              onPressed: () => {toggleFunction(meal)},
-              icon: Icon(Icons.star),
+              onPressed: () {
+                print(isFavourite);
+                toggleFunction(meal);
+              },
+              icon: Icon(isFavourite ? Icons.star : Icons.star_border),
             )
           ],
         ),
