@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meals/data/dummy_data.dart';
 import 'package:meals/provider/favourite_provider.dart';
 import 'package:meals/provider/meals_provider.dart';
 import 'package:meals/screens/categories.dart';
 import 'package:meals/screens/filter_screen.dart';
 import 'package:meals/screens/meals.dart';
 import 'package:meals/widgets/main_drawer.dart';
-
-import '../model/meal.dart';
+import '../provider/filter_provider.dart';
 
 const kInitializedFilters = {
   Filter.gluttenFree: false,
@@ -35,15 +33,6 @@ class _TabScreenState extends ConsumerState<TabScreen> {
 
   Map<Filter, bool> filterMeals = kInitializedFilters;
 
-  void _showMessage(String message) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-      ),
-    );
-  }
-
   void _onSetScreen(String identifier) async {
     Navigator.of(context).pop();
     if (identifier == "filters") {
@@ -52,7 +41,8 @@ class _TabScreenState extends ConsumerState<TabScreen> {
               builder: (ctx) => FilterScreen(
                   currentFilters: filterMeals ?? kInitializedFilters)));
       setState(() {
-        filterMeals = result ?? kInitializedFilters;
+        filterMeals = result ??
+            kInitializedFilters; //this is receiving data from a future widget that return a value
       });
     }
   }

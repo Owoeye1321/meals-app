@@ -10,17 +10,26 @@ class MealDetails extends ConsumerWidget {
   MealDetails({super.key, required this.meal});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    void toggleFunction(Meal meal) {
+      final result =
+          ref.read(favouriteProvider.notifier).toggleMealFavouriteStatus(meal);
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(result
+              ? "Favourite added successfully"
+              : "Favourite removed successfully"),
+        ),
+      );
+    }
+
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,
           title: Text(meal.title),
           actions: [
             IconButton(
-              onPressed: () => {
-                ref
-                    .read(favouriteProvider.notifier)
-                    .toggleMealFavouriteStatus(meal)
-              },
+              onPressed: () => {toggleFunction(meal)},
               icon: Icon(Icons.star),
             )
           ],
