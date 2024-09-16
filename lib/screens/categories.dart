@@ -24,7 +24,7 @@ class _CategoriesScreenState extends State<CategoriesScreen>
     super.initState();
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(microseconds: 300),
+      duration: Duration(seconds: 1),
       lowerBound: 0,
       upperBound: 1,
     );
@@ -72,8 +72,25 @@ class _CategoriesScreenState extends State<CategoriesScreen>
             )
             .toList(),
       ),
-      builder: (context, child) => Padding(
-        padding: EdgeInsets.only(top: 100 - _animationController.value * 100),
+      builder: (context, child) =>
+          // Padding(
+          //   padding: EdgeInsets.only(top: 100 - _animationController.value * 100),
+          //   child: child,
+          // ),
+          SlideTransition(
+        position: Tween(
+          begin: Offset(0, 0.2),
+          end: Offset(0, 0),
+        ).animate(CurvedAnimation(
+          parent: _animationController,
+          curve: Curves.easeInOut,
+        )),
+        // _animationController.drive(
+        //   Tween(
+        //     begin: Offset(0, 0.3),
+        //     end: Offset(0, 0),
+        //   ),
+        // ), //drive help convert numbers from 0 and 1 to an animation between two values
         child: child,
       ),
     );
