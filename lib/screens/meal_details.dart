@@ -36,19 +36,33 @@ class MealDetails extends ConsumerWidget {
                 print(isFavourite);
                 toggleFunction(meal);
               },
-              icon: Icon(isFavourite ? Icons.star : Icons.star_border),
+              icon: AnimatedSwitcher(
+                transitionBuilder: (child, animation) {
+                  return RotationTransition(
+                      turns: Tween(begin: 0.8, end: 1.0).animate(animation),
+                      child: child);
+                },
+                duration: Duration(milliseconds: 300),
+                child: Icon(
+                  isFavourite ? Icons.star : Icons.star_border,
+                  key: ValueKey(isFavourite),
+                ),
+              ),
             )
           ],
         ),
         body: SingleChildScrollView(
           child: Column(
             children: [
-              FadeInImage(
-                placeholder: MemoryImage(kTransparentImage),
-                image: NetworkImage(meal.imageUrl),
-                height: 250,
-                fit: BoxFit.cover,
-                width: double.infinity,
+              Hero(
+                tag: meal.id,
+                child: FadeInImage(
+                  placeholder: MemoryImage(kTransparentImage),
+                  image: NetworkImage(meal.imageUrl),
+                  height: 250,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                ),
               ),
               SizedBox(
                 height: 20,
